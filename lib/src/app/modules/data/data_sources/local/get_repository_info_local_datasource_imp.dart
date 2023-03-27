@@ -4,10 +4,11 @@ import 'package:path/path.dart';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:repository_explorer/src/app/config/data_repository_info_constants.dart';
+import 'package:repository_explorer/src/app/modules/data/data_sources/local/get_repository_info_local_datasource.dart';
 import 'package:repository_explorer/src/app/modules/data/dto/repository_info_dto.dart';
 import 'package:sqflite/sqflite.dart';
 
-class RepositoryInfoLocal {
+class RepositoryInfoLocal implements GetRepositoryInfoLocalDatasource {
   static Database? _database;
   static final RepositoryInfoLocal db = RepositoryInfoLocal._();
 
@@ -24,7 +25,7 @@ class RepositoryInfoLocal {
   }
 
   // Create the database and the repository table
-  initDB() async {
+  Future initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentsDirectory.path, DATABASE_NAME);
 
@@ -45,11 +46,11 @@ class RepositoryInfoLocal {
 
       repositoryInfo.idRepository =
           await db.rawInsert('''insert into $REPOSITORY_TABLE_NAME(
-          $REPOSITORY_COLUMN_NAME, $REPOSITORY_COLUMN_DESCRIPTION,
+          $REPOSITORY_COLUMN_REPOSITORYID, $REPOSITORY_COLUMN_NAME, $REPOSITORY_COLUMN_DESCRIPTION,
           $REPOSITORY_COLUMN_CREATE_AT, $REPOSITORY_COLUMN_LANGUAGE,
           $REPOSITORY_COLUMN_STARGAZERS_COUNT)
           VALUES(
-            '${repositoryInfo.name}', '${repositoryInfo.description}',
+            '${repositoryInfo.idRepository}', '${repositoryInfo.name}', '${repositoryInfo.description}',
             '${repositoryInfo.dateCreate}', '${repositoryInfo.qtdNumberStar}',
             '${repositoryInfo.language}')
         ''');
@@ -75,7 +76,7 @@ class RepositoryInfoLocal {
     }
   }
 
-  deleteId(int id) async {
+  Future<bool> deleteId(int id) async {
     try {
       final db = await database;
       db.delete(REPOSITORY_TABLE_NAME, where: "repositoryID = $id");

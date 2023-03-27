@@ -3,10 +3,10 @@ import 'package:repository_explorer/src/app/modules/data/data_sources/remote/get
 import 'package:repository_explorer/src/app/modules/data/data_sources/remote/get_repository_info_remote_datasource_imp.dart';
 
 import 'package:repository_explorer/src/app/modules/data/repositories/get_repository_info_repository_imp.dart';
-import 'package:repository_explorer/src/app/modules/domain/repositories/get_repository_info_repository.dart';
+import 'package:repository_explorer/src/app/modules/domain/repositories/repository_info_repository.dart';
 
 main() {
-  test('Espero que o retorno não seja nulo ', () {
+  test('Espero que o retorno do repositorio não seja nulo ', () {
     GetRepositoryInfoRemoteDatasource datasource =
         GetRepositoryInfoRemoteDatasourceImpl();
     GetRepositoryInfoRepository repository =

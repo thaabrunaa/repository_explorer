@@ -1,7 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:repository_explorer/src/app/modules/data/data_sources/remote/get_repository_info_remote_datasource.dart';
 import 'package:repository_explorer/src/app/modules/data/dto/repository_info_dto.dart';
-import 'package:repository_explorer/src/app/modules/domain/repositories/get_repository_info_repository.dart';
+import 'package:repository_explorer/src/app/modules/domain/repositories/repository_info_repository.dart';
 
 final $GetRepositoryInfoRepositoryImpl =
     Bind.singleton((i) => GetRepositoryInfoRepositoryImpl(i()));

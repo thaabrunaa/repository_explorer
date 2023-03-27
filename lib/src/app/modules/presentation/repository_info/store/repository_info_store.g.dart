@@ -13,13 +13,13 @@ mixin _$RepositoryInfoStore on _RepositoryInfo, Store {
       Atom(name: '_RepositoryInfo.listRepositoryFavorite', context: context);
 
   @override
-  List<RepositoryInfoDto> get listRepositoryFavorite {
+  ObservableList<RepositoryInfoDto> get listRepositoryFavorite {
     _$listRepositoryFavoriteAtom.reportRead();
     return super.listRepositoryFavorite;
   }
 
   @override
-  set listRepositoryFavorite(List<RepositoryInfoDto> value) {
+  set listRepositoryFavorite(ObservableList<RepositoryInfoDto> value) {
     _$listRepositoryFavoriteAtom
         .reportWrite(value, super.listRepositoryFavorite, () {
       super.listRepositoryFavorite = value;
@@ -42,19 +42,19 @@ mixin _$RepositoryInfoStore on _RepositoryInfo, Store {
     });
   }
 
-  late final _$isButtonSaveAtom =
-      Atom(name: '_RepositoryInfo.isButtonSave', context: context);
+  late final _$isToggleSaveAtom =
+      Atom(name: '_RepositoryInfo.isToggleSave', context: context);
 
   @override
-  bool get isButtonSave {
-    _$isButtonSaveAtom.reportRead();
-    return super.isButtonSave;
+  List<bool> get isToggleSave {
+    _$isToggleSaveAtom.reportRead();
+    return super.isToggleSave;
   }
 
   @override
-  set isButtonSave(bool value) {
-    _$isButtonSaveAtom.reportWrite(value, super.isButtonSave, () {
-      super.isButtonSave = value;
+  set isToggleSave(List<bool> value) {
+    _$isToggleSaveAtom.reportWrite(value, super.isToggleSave, () {
+      super.isToggleSave = value;
     });
   }
 
@@ -62,22 +62,45 @@ mixin _$RepositoryInfoStore on _RepositoryInfo, Store {
       ActionController(name: '_RepositoryInfo', context: context);
 
   @override
-  void checkSaveRepository(int id) {
+  dynamic remove(int index) {
     final _$actionInfo = _$_RepositoryInfoActionController.startAction(
-        name: '_RepositoryInfo.checkSaveRepository');
+        name: '_RepositoryInfo.remove');
     try {
-      return super.checkSaveRepository(id);
+      return super.remove(index);
     } finally {
       _$_RepositoryInfoActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void checkDeleteRepository(int id) {
+  void checkSaveRepository(RepositoryInfoDto dto) {
+    final _$actionInfo = _$_RepositoryInfoActionController.startAction(
+        name: '_RepositoryInfo.checkSaveRepository');
+    try {
+      return super.checkSaveRepository(dto);
+    } finally {
+      _$_RepositoryInfoActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void checkDeleteRepository(
+      {required RepositoryInfoDto dto, required int id}) {
     final _$actionInfo = _$_RepositoryInfoActionController.startAction(
         name: '_RepositoryInfo.checkDeleteRepository');
     try {
-      return super.checkDeleteRepository(id);
+      return super.checkDeleteRepository(dto: dto, id: id);
+    } finally {
+      _$_RepositoryInfoActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic toggleSave(int index) {
+    final _$actionInfo = _$_RepositoryInfoActionController.startAction(
+        name: '_RepositoryInfo.toggleSave');
+    try {
+      return super.toggleSave(index);
     } finally {
       _$_RepositoryInfoActionController.endAction(_$actionInfo);
     }
@@ -88,7 +111,7 @@ mixin _$RepositoryInfoStore on _RepositoryInfo, Store {
     return '''
 listRepositoryFavorite: ${listRepositoryFavorite},
 qtdNumberFavorite: ${qtdNumberFavorite},
-isButtonSave: ${isButtonSave}
+isToggleSave: ${isToggleSave}
     ''';
   }
 }

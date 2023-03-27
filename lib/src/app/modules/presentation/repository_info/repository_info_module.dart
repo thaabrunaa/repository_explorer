@@ -4,11 +4,11 @@ import 'package:repository_explorer/src/app/modules/data/repositories/get_reposi
 import 'package:repository_explorer/src/app/modules/domain/use_cases/get_repository_info_use_case_imp.dart';
 import 'package:repository_explorer/src/app/modules/presentation/favorite_repository/favorite_repository_controller.dart';
 import 'package:repository_explorer/src/app/modules/presentation/favorite_repository/favorite_repository_page.dart';
-import 'package:repository_explorer/src/app/modules/presentation/home/repository_info_controller.dart';
-import 'package:repository_explorer/src/app/modules/presentation/home/repository_info_page.dart';
-import 'package:repository_explorer/src/app/modules/presentation/home/repository_info_store.dart';
+import 'package:repository_explorer/src/app/modules/presentation/repository_info/repository_info_controller.dart';
+import 'package:repository_explorer/src/app/modules/presentation/repository_info/repository_info_page.dart';
+import 'package:repository_explorer/src/app/modules/presentation/repository_info/store/repository_info_store.dart';
 
-class HomeModule extends Module {
+class RepositoryInfoModule extends Module {
   @override
   final List<Bind> binds = [
     //Datasource

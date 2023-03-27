@@ -2,7 +2,7 @@ import 'package:repository_explorer/src/app/config/data_repository_info_constant
 import 'package:repository_explorer/src/app/modules/domain/entites/repository_info_entity.dart';
 
 class RepositoryInfoDto extends RepositoryInfoEntity {
-  bool isButtonSave;
+  Function? isButtonSave;
   late int? idRepository;
   final String nameRepository;
   final String descriptionRepository;
@@ -10,7 +10,7 @@ class RepositoryInfoDto extends RepositoryInfoEntity {
   final String qtNumberStar;
   final String language;
   RepositoryInfoDto({
-    this.isButtonSave = true,
+    this.isButtonSave,
     this.idRepository,
     required this.nameRepository,
     required this.descriptionRepository,
@@ -27,6 +27,7 @@ class RepositoryInfoDto extends RepositoryInfoEntity {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': idRepository,
       'name': nameRepository,
       'description': descriptionRepository,
       'created_at': dtCreate,
@@ -56,6 +57,27 @@ class RepositoryInfoDto extends RepositoryInfoEntity {
       language: (map[REPOSITORY_COLUMN_LANGUAGE] as String).toString(),
       qtNumberStar:
           (map[REPOSITORY_COLUMN_STARGAZERS_COUNT] as String).toString(),
+    );
+  }
+
+  RepositoryInfoDto copyWith({
+    Function? isButtonSave,
+    int? idRepository,
+    String? nameRepository,
+    String? descriptionRepository,
+    String? dtCreate,
+    String? qtNumberStar,
+    String? language,
+  }) {
+    return RepositoryInfoDto(
+      isButtonSave: isButtonSave ?? this.isButtonSave,
+      idRepository: idRepository ?? this.idRepository,
+      nameRepository: nameRepository ?? this.nameRepository,
+      descriptionRepository:
+          descriptionRepository ?? this.descriptionRepository,
+      dtCreate: dtCreate ?? this.dtCreate,
+      language: language ?? this.language,
+      qtNumberStar: qtNumberStar ?? this.qtNumberStar,
     );
   }
 }
